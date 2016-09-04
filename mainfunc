@@ -1,0 +1,65 @@
+board = [7,0,0,0,0,1,0,0,0,0,0,0,0,0,0]
+>>> hand = board[0]
+>>> board[0] = 0
+>>> target = 0
+>>> run = 0
+>>> while hand > 0:
+		hand = hand-1
+		target = (target+1) % 15
+		board[0+target] = board[0+target]+1
+		run = run + 1
+		print("Run", hand, target)
+		
+		if hand == 0:
+			if (0+target) == 7:
+				print(board)
+				for n in range(6,-1,-1):
+					if board[n] == 7 - n:
+						condition = "B"
+						break
+					elif n == 0:
+						condition = "C"
+						break
+												
+				if condition == "B":
+					print("B")
+					target = n
+					hand = board[n]
+					board[n] = 0
+					run = 0
+					print(board)
+					print("Strategy", hand, target)
+
+				elif condition == "C":
+					target = 0
+					for m in range(7):
+						if board[m] != 0:
+							target = m
+							hand = board[target]
+							board[target] = 0
+							run = 0
+							print(board)
+							print("Next pick", hand, target)
+						
+					print("No choice, end turn!")
+				
+			else:
+				if board[0+target] == 1:
+					if run > 7 and 0 <= (0+target) < 8:
+						print("Run = ", run, "Bom!")
+						board[8] = board[8] + 1 + board[15-(0+target)]
+						board[0+target] = 0
+						board[15-(0+target)] = 0
+						print(board)
+						break
+					else:
+						print("End turn!", hand, target)
+						print(board)
+						break
+				else:
+					print(board)
+					print(board[0+target])
+					hand = board[0+target]
+					board[0+target] = 0
+					run = 0
+					print("Cont", hand, target)
