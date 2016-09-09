@@ -1,16 +1,19 @@
-board = [7,0,0,0,0,1,0,0,0,0,0,0,0,0,0]
->>> hand = board[0]
->>> board[0] = 0
+
+>>> 
+>>> board = [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 >>> target = 0
 >>> run = 0
-
->>> def basic(hand, target, run):
+#this definition runs the special case where it all starts from zero
+>>> def basic(board, target, run):
+		hand = board[0]
+		board[0] = 0
 		while hand > 0:
-		hand = hand-1
-		target = (target+1) % 15
-		board[0+target] = board[0+target]+1
-		run = run + 1
-		print("Run", hand, target)
+			hand = hand-1
+			target = (target+1) % 15
+			board[0+target] = board[0+target]+1
+			run = run + 1
+			print("Run", hand, target)
+		print(board)
 		
 >>> while hand > 0:
 		hand = hand-1
