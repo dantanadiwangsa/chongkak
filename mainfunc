@@ -5,11 +5,11 @@
 >>> run = 0
 #this definition runs the special case where it all starts from zero
 >>> def basic(board, target, run):
-		hand = board[0]
-		board[0] = 0
+		hand = board[target]
+		board[target] = 0
 		while hand > 0:
 			hand = hand-1
-			target = (target+1) % 15
+			target = (target+1) % 16
 			board[0+target] = board[0+target]+1
 			run = run + 1
 			print("Run", hand, target)
