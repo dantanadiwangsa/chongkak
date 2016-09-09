@@ -3,7 +3,7 @@
 >>> board = [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 >>> target = 0
 >>> run = 0
-#this definition runs the special case where it all starts from zero
+
 >>> def basic(board, target, run):
 		hand = board[target]
 		board[target] = 0
@@ -15,6 +15,14 @@
 			print("Run", hand, target)
 		print(board)
 		
+#what happens after it reaches zero?
+#case 1: more seeds - restart
+#case 2a: empty spot on your side - bom and end turn
+#case 2b: empty spot on other side - end turn
+#case 3: end in house - continue turn
+
+#case 3 strategy scan
+
 >>> while hand > 0:
 		hand = hand-1
 		target = (target+1) % 15
