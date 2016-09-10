@@ -4,9 +4,10 @@
 >>> target = 0
 >>> run = 0
 
->>> def basic(board, target, run):
+>>> def basic(board, target):
 		hand = board[target]
 		board[target] = 0
+		run = 0
 		while hand > 0:
 			hand = hand-1
 			target = (target+1) % 16
@@ -16,12 +17,47 @@
 		print(board)
 		
 #what happens after it reaches zero?
-#case 1: more seeds - restart
-#case 2a: empty spot on your side - bom and end turn
-#case 2b: empty spot on other side - end turn
-#case 3: end in house - continue turn
+#ask: does target = 7?
+#if yes - new turn - func: strategy scan
+#if no - ask: board[target] = 0?
+	#if yes - ask: run > 7 AND 0<= target < 7?
+		#if yes: func: Bom
+		#if no: end turn
+	#if no: hand = board[target], board[target]=0, cont
+	
+#func: strategy scan
+>>>def scan(board):
+	for n in range(6,-1,-1):
+		if board[n] == 7 - n:
+			condition = "B"
+			break
+		elif n == 0:
+			condition = "C"
+			break
+	
+	if condition == "B":
+		print("B")
+		target = n
+		hand = board[n]
+		board[n] = 0
+		run = 0
+		print(board)
+		print("Aha! Strategy", hand, target)
 
-#case 3 strategy scan
+	elif condition == "C":
+		target = 0
+		for m in range(7):
+			if board[m] != 0:
+				target = m
+				hand = board[target]
+				board[target] = 0
+				run = 0
+				print(board)
+				print("Next pick", hand, target)
+				break
+			elif m == 6:
+				print("No choice, end turn!")
+				
 
 >>> while hand > 0:
 		hand = hand-1
