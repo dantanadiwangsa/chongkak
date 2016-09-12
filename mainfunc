@@ -1,48 +1,35 @@
-
->>> 
->>> board = [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
->>> target = 0
->>> run = 0
-
->>> def basic(board, target):
+>>>def basic(board, target):
 	hand = board[target]
 	board[target] = 0
 	run = 0
 	while hand > 0:
 		hand = hand-1
-		target = (target+1) % 16
+		target = (target+1) % 15
 		board[target] = board[target]+1
 		run = run + 1
 		print("Run", hand, target)
-	print(board)
 		
->>>def turn(board, target, run, hand):
-	if board[target] == 1:
-		if run > 7 and 0 <= (target) < 8:
-			print("Run = ", run, "Bom!")
-			board[8] = board[8] + 1 + board[15-(0+target)]
-			board[target] = 0
-			board[-target-1] = 0
-			print(board)
+		if hand == 0:
+		    if board[target] == 1:
+		        if run > 7 and 0 <= (target) < 8:
+		            print("Run = ", run, "Bom!")
+		            board[7] = board[7] + 1 + board[15-(0+target)]
+		            board[target] = 0
+		            board[-target-1] = 0
+		            print(board)
+		        else:
+		            print("End turn!", hand, target)
+		            print(board)
+		    else:
+		        print(board)
+		        print(board[target])
+		        hand = board[target]
+		        board[target] = 0
+		        run = 0
+		        print("Cont", hand, target)
 						
-		else:
-			print("End turn!", hand, target)
-			print(board)
-	
-						
-	else:
-		print(board)
-		print(board[target])
-		hand = board[target]
-		board[target] = 0
-		run = 0
-		print("Cont", hand, target)
-			
->>>def game():
-	basic([7,7,7,7,7,7,7,0,7,7,7,7,7,7,7], 0)
-	if hand == 0:
-		turn(board, target, run, hand)
-
+>>>basic([7,7,7,7,7,7,7,0,7,7,7,7,7,7,7], 1)
+		
 #what happens after it reaches zero?
 #ask: does target = 7?
 #if yes - new turn - func: strategy scan
