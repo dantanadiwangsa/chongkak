@@ -11,7 +11,7 @@
 		while hand > 0:
 			hand = hand-1
 			target = (target+1) % 16
-			board[0+target] = board[0+target]+1
+			board[target] = board[target]+1
 			run = run + 1
 			print("Run", hand, target)
 		print(board)
@@ -58,7 +58,27 @@
 			elif m == 6:
 				print("No choice, end turn!")
 				
-
+>>>def turn(board, target, run, hand):
+		if board[target] == 1:
+					if run > 7 and 0 <= (target) < 8:
+						print("Run = ", run, "Bom!")
+						board[8] = board[8] + 1 + board[15-(0+target)]
+						board[target] = 0
+						board[-target-1] = 0
+						print(board)
+						
+					else:
+						print("End turn!", hand, target)
+						print(board)
+						
+		elif board[target] > 1:
+			print(board)
+			print(board[target])
+			hand = board[target]
+			board[target] = 0
+			run = 0
+			print("Cont", hand, target)
+			
 >>> while hand > 0:
 		hand = hand-1
 		target = (target+1) % 15
@@ -100,12 +120,12 @@
 					print("No choice, end turn!")
 				
 			else:
-				if board[0+target] == 1:
-					if run > 7 and 0 <= (0+target) < 8:
+				if board[target] == 1:
+					if run > 7 and 0 <= (target) < 8:
 						print("Run = ", run, "Bom!")
 						board[8] = board[8] + 1 + board[15-(0+target)]
-						board[0+target] = 0
-						board[15-(0+target)] = 0
+						board[target] = 0
+						board[15-target] = 0
 						print(board)
 						break
 					else:
@@ -114,8 +134,8 @@
 						break
 				else:
 					print(board)
-					print(board[0+target])
-					hand = board[0+target]
-					board[0+target] = 0
+					print(board[target])
+					hand = board[target]
+					board[target] = 0
 					run = 0
 					print("Cont", hand, target)
