@@ -10,24 +10,56 @@
 		print("Run", hand, target)
 		
 		if hand == 0:
-		    if board[target] == 1:
-		        if run > 7 and 0 <= (target) < 8:
-		            print("Run = ", run, "Bom!")
-		            board[7] = board[7] + 1 + board[15-(0+target)]
-		            board[target] = 0
-		            board[-target-1] = 0
-		            print(board)
-		        else:
-		            print("End turn!", hand, target)
-		            print(board)
-		    else:
-		        print(board)
-		        print(board[target])
-		        hand = board[target]
-		        board[target] = 0
-		        run = 0
-		        print("Cont", hand, target)
-						
+			if target == 7:
+				for n in range(6,-1,-1):
+					if board[n] == 7 - n:
+						condition = "B"
+						break
+					elif n == 0:
+						condition = "C"
+						break
+	
+				if condition == "B":
+					print("B")
+					target = n
+					hand = board[n]
+					board[n] = 0
+					run = 0
+					print(board)
+					print("Aha! Strategy", hand, target)
+
+				elif condition == "C":
+					target = 0
+					for m in range(7):
+						if board[m] != 0:
+							target = m
+							hand = board[target]
+							board[target] = 0
+							run = 0
+							print(board)
+							print("Next pick", hand, target)
+							break
+						elif m == 6:
+							print("No choice, end turn!")	
+			else:
+			    if board[target] == 1:
+			        if run > 7 and 0 <= (target) < 8:
+			            print("Run = ", run, "Bom!")
+			            board[7] = board[7] + 1 + board[15-(0+target)]
+			            board[target] = 0
+			            board[-target-1] = 0
+			            print(board)
+			        else:
+			            print("End turn!", hand, target)
+			            print(board)
+			    else:
+			        print(board)
+			        print(board[target])
+			        hand = board[target]
+			        board[target] = 0
+			        run = 0
+			        print("Cont", hand, target)
+							
 >>>basic([7,7,7,7,7,7,7,0,7,7,7,7,7,7,7], 1)
 		
 #what happens after it reaches zero?
