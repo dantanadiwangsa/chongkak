@@ -60,7 +60,73 @@
 			        run = 0
 			        print("Cont", hand, target)
 							
->>>basic([7,7,7,7,7,7,7,0,7,7,7,7,7,7,7], 1)
+>>>basic_inv([7,7,7,7,7,7,7,0,7,7,7,7,7,7,7], 1)
+
+#now for the other side!
+>>>def basic(board, target):
+	hand = board[target]
+	board[target] = 0
+	run = 0
+	while hand > 0:
+		hand = hand-1
+		if target == 6:
+		    target = 8
+		else:
+		    target = (target+1) % 16
+		board[target] = board[target]+1
+		run = run + 1
+		
+		if hand == 0:
+			print("Run", hand, target)
+			if target == 15:
+				for n in range(14,7,-1):
+					if board[n] == 15 - n:
+						condition = "B"
+						break
+					elif n == 8:
+						condition = "C"
+						break
+	
+				if condition == "B":
+					print("B")
+					target = n
+					hand = board[n]
+					board[n] = 0
+					run = 0
+					print(board)
+					print("Aha! Strategy", hand, target)
+
+				elif condition == "C":
+					target = 0
+					for m in range(8, 15):
+						if board[m] != 0:
+							target = m
+							hand = board[target]
+							board[target] = 0
+							run = 0
+							print(board)
+							print("Next pick", hand, target)
+							break
+						elif m == 14:
+							print("No choice, end turn!")	
+			else:
+			    if board[target] == 1:
+			        if run > 7 and 8 <= (target) < 15:
+			            print("Run = ", run, "Bom!")
+			            board[15] = board[15] + 1 + board[14-target]
+			            board[target] = 0
+			            board[14-target] = 0
+			            print(board)
+			        else:
+			            print("End turn!", hand, target)
+			            print(board)
+			    else:
+			        print(board)
+			        print(board[target])
+			        hand = board[target]
+			        board[target] = 0
+			        run = 0
+			        print("Cont", hand, target)
 		
 #what happens after it reaches zero?
 #ask: does target = 7?
